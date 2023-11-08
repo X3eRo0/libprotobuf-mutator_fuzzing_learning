@@ -11,12 +11,12 @@ LPM_LIB=$(LPM_DIR)/build/src/libprotobuf-mutator.so.0
 
 INC=-I$(PROTOBUF_DIR)/include -I$(LPM_DIR)
 
-all: $(TARGET).so
+all: $(PBSRC).cc $(TARGET).so vuln
 
 $(PBSRC).cc: test.proto
 	rm -r ./genfiles 2>&1 > /dev/null
 	mkdir ./genfiles 2>&1 > /dev/null
-	$(PROTOBUF_DIR)/bin/protoc $^ --cpp_out=./genfiles
+	protoc $^ --cpp_out=./genfiles
 
 
 $(TARGET).so: $(TARGET).cc $(PB_SRC).cc
