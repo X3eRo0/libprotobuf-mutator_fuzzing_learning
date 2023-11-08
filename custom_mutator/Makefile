@@ -1,5 +1,5 @@
 TARGET=lpm_aflpp_custom_mutator_input
-CXX=clang++-11
+CXX=clang++
 AFLCC=/opt/AFLplusplus/afl-gcc
 PB_SRC=test.pb
 
