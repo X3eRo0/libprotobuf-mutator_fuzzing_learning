@@ -14,7 +14,7 @@ INC=-I$(PROTOBUF_DIR)/include -I$(LPM_DIR)
 all: $(PBSRC).cc $(TARGET).so vuln
 
 $(PBSRC).cc: test.proto
-	rm -r ./genfiles 2>&1 > /dev/null
+	rm -rf ./genfiles 2>&1 > /dev/null
 	mkdir ./genfiles 2>&1 > /dev/null
 	protoc $^ --cpp_out=./genfiles
 
