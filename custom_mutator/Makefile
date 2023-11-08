@@ -19,14 +19,14 @@ $(PBSRC).cc: test.proto
 	protoc $^ --cpp_out=./genfiles
 
 
-$(TARGET).so: $(TARGET).cc $(PB_SRC).cc
+$(TARGET).so: $(TARGET).cc $(PBSRC).cc
 	$(CXX) -fPIC -c $^ $(INC)
 	$(CXX) -shared -Wall -O3 -o $@ *.o $(LPM_LIB) $(PROTOBUF_LIB)
 
 vuln: vuln.c
 	$(AFLCC) -o $@ $^
 
-test_proto_serializer: test_proto_serializer.cc $(PB_SRC)
+test_proto_serializer: test_proto_serializer.cc $(PBSRC)
 	$(CXX) -o $@ $^ $(PROTOBUF_LIB) $(INC)
 
 .PHONY: clean
