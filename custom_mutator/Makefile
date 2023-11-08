@@ -19,7 +19,7 @@ $(PBSRC).cc: test.proto
 	protoc $^ --cpp_out=./genfiles
 
 
-$(TARGET).so: $(TARGET).cc $(PBSRC).cc
+$(TARGET).so: $(TARGET).cc genfiles/test.pb.cc
 	$(CXX) -fPIC -c $^ $(INC)
 	$(CXX) -shared -Wall -O3 -o $@ *.o $(LPM_LIB) $(PROTOBUF_LIB)
 
