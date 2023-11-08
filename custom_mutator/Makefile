@@ -1,19 +1,25 @@
 TARGET=lpm_aflpp_custom_mutator_input
 CXX=clang++-11
-AFLCC=$(HOME)/AFLplusplus/afl-gcc
-PB_SRC=test.pb.cc
+AFLCC=/opt/AFLplusplus/afl-gcc
+PB_SRC=test.pb
 
-PROTOBUF_DIR=$(HOME)/libprotobuf-mutator/build/external.protobuf
+PROTOBUF_DIR=/opt/libprotobuf-mutator/build/external.protobuf
 PROTOBUF_LIB=$(PROTOBUF_DIR)/lib/libprotobufd.a
 
-LPM_DIR=$(HOME)/libprotobuf-mutator
-LPM_LIB=$(LPM_DIR)/build/src/libfuzzer/libprotobuf-mutator-libfuzzer.a $(LPM_DIR)/build/src/libprotobuf-mutator.a
+LPM_DIR=/opt/libprotobuf-mutator
+LPM_LIB=$(LPM_DIR)/build/src/libprotobuf-mutator.so.0
 
 INC=-I$(PROTOBUF_DIR)/include -I$(LPM_DIR)
 
 all: $(TARGET).so
 
-$(TARGET).so: $(TARGET).cc $(PB_SRC)
+$(PBSRC).cc: test.proto
+	rm -r ./genfiles 2>&1 > /dev/null
+	mkdir ./genfiles 2>&1 > /dev/null
+	$(PROTOBUF_DIR)/bin/protoc $^ --cpp_out=./genfiles
+
+
+$(TARGET).so: $(TARGET).cc $(PB_SRC).cc
 	$(CXX) -fPIC -c $^ $(INC)
 	$(CXX) -shared -Wall -O3 -o $@ *.o $(LPM_LIB) $(PROTOBUF_LIB)
 

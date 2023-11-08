@@ -1,5 +1,5 @@
-#include "libprotobuf-mutator/src/mutator.h"
-#include "test.pb.h"
+#include "src/mutator.h"
+#include "genfiles/test.pb.h"
 
 #include <bits/stdc++.h>
 
