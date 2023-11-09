@@ -16,7 +16,7 @@ all: $(PBSRC).cc $(TARGET).so vuln
 $(PBSRC).cc: test.proto
 	rm -rf ./genfiles 2>&1 > /dev/null
 	mkdir ./genfiles 2>&1 > /dev/null
-	protoc $^ --cpp_out=./genfiles
+	$(PROTOBUF_DIR)/bin/protoc $^ --cpp_out=./genfiles
 
 
 $(TARGET).so: $(TARGET).cc genfiles/test.pb.cc
